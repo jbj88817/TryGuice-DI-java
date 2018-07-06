@@ -5,16 +5,16 @@ import us.bojie.tryguice.MyApplet;
 public class StringWritingApplet implements MyApplet {
 
     private MyDestination mDestination;
-    private String mOutputString;
+    private StringProvider mStringProvider;
 
     public StringWritingApplet(MyDestination destination,
-                               String outputString) {
+                               StringProvider stringProvider) {
         mDestination = destination;
-        mOutputString = outputString;
+        mStringProvider = stringProvider;
     }
 
     private void writeString() {
-        mDestination.write(mOutputString);
+        mDestination.write(mStringProvider.get());
     }
 
     public void run() {
