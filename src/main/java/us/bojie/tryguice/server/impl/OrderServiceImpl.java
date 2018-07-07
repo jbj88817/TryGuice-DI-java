@@ -8,17 +8,15 @@ import us.bojie.tryguice.server.PriceService;
 
 public class OrderServiceImpl implements OrderService {
     private final PriceService priceService;
-    private final PaymentService paymentService;
+    @Inject private PaymentService paymentService;
     private final SessionManager sessionManager;
 
     private Long ordersPaid = 0L;
 
     @Inject
     public OrderServiceImpl(PriceService priceService,
-                            PaymentService paymentService,
                             SessionManager sessionManager) {
         this.priceService = priceService;
-        this.paymentService = paymentService;
         this.sessionManager = sessionManager;
     }
 
