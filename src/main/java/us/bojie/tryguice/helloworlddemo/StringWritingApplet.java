@@ -13,7 +13,7 @@ public class StringWritingApplet implements MyApplet {
 
     @Inject
     public StringWritingApplet(MyDestination destination,
-                               Provider<String> stringProvider) {
+                               @Output Provider<String> stringProvider) {
         mDestination = destination;
         mStringProvider = stringProvider;
     }
