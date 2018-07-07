@@ -8,12 +8,23 @@ import org.junit.Test;
 import javax.inject.Inject;
 
 import us.bojie.tryguice.server.OrderService;
+import us.bojie.tryguice.server.PriceService;
 
 public class OrderServiceImplTest {
 
-    @Inject private OrderService orderService;
+    @Inject
+    private OrderService orderService;
 
-    @Before public void setUp() {
+    @Inject
+    private PriceService priceService;
+//    @Inject
+//    @Named("supportedCurrencies")
+//    private Provider<List<String>> supportedCurrenciesProvider;
+
+
+
+    @Before
+    public void setUp() {
         Guice.createInjector(new ServerModule())
                 .injectMembers(this);
     }
@@ -23,4 +34,8 @@ public class OrderServiceImplTest {
         orderService.sentToPayment(789L);
     }
 
+    @Test
+    public void testSupportedCurrencies() {
+        throw new RuntimeException(priceService.getSupportedCurrencies().toString());
+    }
 }
