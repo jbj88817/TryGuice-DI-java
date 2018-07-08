@@ -1,14 +1,31 @@
 package us.bojie.tryguice.server.impl;
 
+import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
+import com.google.inject.util.Modules;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import us.bojie.tryguice.server.OrderService;
 import us.bojie.tryguice.server.PriceService;
+
+class PriceServiceMock extends PriceServiceImpl {
+
+    @Inject
+    public PriceServiceMock(Set<String> supportedCurrencies) {
+        super(supportedCurrencies);
+    }
+
+    @Override
+    public long getPrice(long orderId) {
+        return 567L;
+    }
+}
 
 public class OrderServiceImplTest {
 
@@ -22,10 +39,16 @@ public class OrderServiceImplTest {
 //    private Provider<List<String>> supportedCurrenciesProvider;
 
 
-
     @Before
     public void setUp() {
-        Guice.createInjector(new ServerModule())
+        Guice.createInjector(Modules.override(new ServerModule()).with(
+                new AbstractModule() {
+                    @Override
+                    protected void configure() {
+                        bind(PriceService.class)
+                                .to(PriceServiceMock.class);
+                    }
+                }))
                 .injectMembers(this);
     }
 

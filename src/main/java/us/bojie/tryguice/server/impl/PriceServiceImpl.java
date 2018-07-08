@@ -15,7 +15,7 @@ public class PriceServiceImpl implements PriceService {
     }
 
     public long getPrice(long orderId) {
-        return 456L;
+        throw new UnsupportedOperationException();
     }
 
     public Set<String> getSupportedCurrencies() {
