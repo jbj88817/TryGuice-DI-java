@@ -14,6 +14,10 @@ import javax.inject.Inject;
 import us.bojie.tryguice.server.OrderService;
 import us.bojie.tryguice.server.PriceService;
 
+import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertTrue;
+import static junit.framework.TestCase.fail;
+
 class PriceServiceMock extends PriceServiceImpl {
 
     @Inject
@@ -54,11 +58,19 @@ public class OrderServiceImplTest {
 
     @Test
     public void sentToPayment() {
-        orderService.sentToPayment(789L);
+        try {
+            orderService.sentToPayment(789L);
+            fail("Exception expected");
+        } catch (RuntimeException e) {
+            assertTrue(e.getMessage().contains("Price=567"));
+            assertTrue(e.getMessage().contains("OrdersPaid=1"));
+        }
     }
 
     @Test
     public void testSupportedCurrencies() {
-        throw new RuntimeException(priceService.getSupportedCurrencies().toString());
+        assertEquals("[CNY, EUR, USD, JPY]",
+                priceService.getSupportedCurrencies()
+                        .toString());
     }
 }

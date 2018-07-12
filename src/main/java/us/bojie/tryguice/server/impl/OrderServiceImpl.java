@@ -24,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
         this.sessionManager = sessionManager;
     }
 
+    @Logged
     public void sentToPayment(long orderId) {
         long price = priceService.getPrice(orderId);
         paymentService.pay(orderId, price,
