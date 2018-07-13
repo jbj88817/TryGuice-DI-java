@@ -38,10 +38,6 @@ public class OrderServiceImplTest {
 
     @Inject
     private PriceService priceService;
-//    @Inject
-//    @Named("supportedCurrencies")
-//    private Provider<List<String>> supportedCurrenciesProvider;
-
 
     @Before
     public void setUp() {
