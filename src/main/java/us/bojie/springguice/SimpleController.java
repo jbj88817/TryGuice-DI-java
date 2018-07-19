@@ -1,17 +1,54 @@
 package us.bojie.springguice;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import us.bojie.tryguice.MyApplet;
 
 @SpringBootApplication
 @RestController
 public class SimpleController {
 
+    @Bean
+    Injector injector() {
+        return Guice.createInjector(new HelloWorldWebModule());
+    }
+
+    @Bean
+    MyApplet applet(Injector injector) {
+        return injector.getInstance(MyApplet.class);
+    }
+
+    @Bean
+    WebDestination destination(Injector injector) {
+        return injector.getInstance(WebDestination.class);
+    }
+
+    @Bean
+    RequestParams params(Injector injector) {
+        return injector.getInstance(RequestParams.class);
+    }
+
+    @Autowired
+    MyApplet applet;
+    @Autowired
+    WebDestination destination;
+    @Autowired
+    RequestParams params;
+
     @GetMapping("/hello")
-    String home() {
-        return "Hello world";
+    String home(@RequestParam("msg") String msg) {
+        params.setMessage(msg);
+        applet.run();
+        return destination.getResult();
     }
 
     public static void main(String[] args) {
