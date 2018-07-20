@@ -1,7 +1,14 @@
 package us.bojie.springguice;
 
+import javax.inject.Singleton;
+
+@Singleton
 public class RequestParams {
     private String message;
+
+    public RequestParams() {
+        System.out.println("RequestParams constructed");
+    }
 
     public String getMessage() {
         return message;
