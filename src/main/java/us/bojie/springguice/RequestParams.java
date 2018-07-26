@@ -1,8 +1,8 @@
 package us.bojie.springguice;
 
-import javax.inject.Singleton;
+import org.springframework.web.context.annotation.RequestScope;
 
-@Singleton
+@RequestScope
 public class RequestParams {
     private String message;
 

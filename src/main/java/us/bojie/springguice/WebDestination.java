@@ -1,10 +1,10 @@
 package us.bojie.springguice;
 
-import javax.inject.Singleton;
+import org.springframework.web.context.annotation.RequestScope;
 
 import us.bojie.tryguice.helloworlddemo.MyDestination;
 
-@Singleton
+@RequestScope
 public class WebDestination implements MyDestination {
 
     private StringBuilder sb = new StringBuilder();
